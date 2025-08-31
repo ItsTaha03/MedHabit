@@ -1,13 +1,22 @@
 workflows:
   flutter-app:
-    name: Build Flutter APK
+    name: Build Flutter APK (auto-create if missing)
     max_build_duration: 60
     environment:
       flutter: stable
     scripts:
+      - name: Ensure android folder exists
+        script: |
+          set -e
+          if [ ! -d "android" ]; then
+            echo "android folder missing — running flutter create ."
+            flutter create .
+          else
+            echo "android folder already exists"
+          fi
       - name: Install dependencies
         script: flutter pub get
-      - name: Build APK
-        script: flutter build apk --release
+      - name: Build debug APK (installable)
+        script: flutter build apk --debug
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/flutter-apk/app-debug.apk
