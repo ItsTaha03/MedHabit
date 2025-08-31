@@ -1,14 +1,13 @@
 workflows:
-  android-native:
-    name: Build Android App
+  flutter-app:
+    name: Build Flutter APK
     max_build_duration: 60
     environment:
-      vars:
-        ANDROID_HOME: /opt/android-sdk-linux
+      flutter: stable
     scripts:
-      - name: Clean Project
-        script: ./gradlew clean
+      - name: Install dependencies
+        script: flutter pub get
       - name: Build APK
-        script: ./gradlew assembleDebug
+        script: flutter build apk --release
     artifacts:
-      - app/build/outputs/**/*.apk
+      - build/app/outputs/flutter-apk/app-release.apk
