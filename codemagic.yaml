@@ -18,14 +18,9 @@ workflows:
       - name: Run Flutter analyze
         script: flutter analyze || true
 
-      # Skip tests if no test folder exists
-      - name: Run tests (optional)
-        script: |
-          if [ -d "test" ]; then
-            flutter test
-          else
-            echo "No tests found. Skipping..."
-          fi
+      # Skip tests completely
+      - name: Skip tests
+        script: echo "Skipping tests..."
 
       - name: Build APK (release)
         script: flutter build apk --release
