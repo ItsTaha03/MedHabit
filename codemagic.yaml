@@ -1,22 +1,32 @@
 workflows:
-  flutter-app:
-    name: Build Flutter APK (auto-create if missing)
+  medhabit-workflow:
+    name: MedHabit Android Build
     max_build_duration: 60
     environment:
       flutter: stable
+      xcode: latest
+      cocoapods: default
     scripts:
-      - name: Ensure android folder exists
-        script: |
-          set -e
-          if [ ! -d "android" ]; then
-            echo "android folder missing — running flutter create ."
-            flutter create .
-          else
-            echo "android folder already exists"
-          fi
       - name: Install dependencies
         script: flutter pub get
-      - name: Build debug APK (installable)
-        script: flutter build apk --debug
+
+      - name: Run Flutter analyze
+        script: flutter analyze
+
+      - name: Run tests (optional)
+        script: flutter test
+
+      - name: Build APK (release)
+        script: flutter build apk --release
+
+      - name: Build AppBundle (for Play Store, optional)
+        script: flutter build appbundle --release
+
     artifacts:
-      - build/app/outputs/flutter-apk/app-debug.apk
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
