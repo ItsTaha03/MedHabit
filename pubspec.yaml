@@ -1,26 +1,32 @@
-name: medhabit
-description: MedHabit - Medical Student Habit Tracker
-publish_to: "none"
+workflows:
+  medhabit-workflow:
+    name: MedHabit Android Build
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install dependencies
+        script: flutter pub get
 
-version: 1.0.0+1
+      - name: Run Flutter analyze
+        script: flutter analyze
 
-environment:
-  sdk: ">=2.17.0 <3.0.0"
+      - name: Run tests (optional)
+        script: flutter test
 
-dependencies:
-  flutter:
-    sdk: flutter
-  cupertino_icons: ^1.0.2
-  shared_preferences: ^2.0.15
-  file_picker: ^5.2.5
-  pdfx: ^2.3.0
-  intl: ^0.18.1
-  fl_chart: ^0.63.0
+      - name: Build APK (release)
+        script: flutter build apk --release
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
+      - name: Build AppBundle (for Play Store, optional)
+        script: flutter build appbundle --release
 
-flutter:
-  uses-material-design: true
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
