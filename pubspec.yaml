@@ -10,10 +10,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # State management
   provider: ^6.0.5
+
+  # Local storage
   shared_preferences: ^2.0.15
   path_provider: ^2.0.11
-  flutter_pdfview: ^1.3.1
+
+  # PDF support (correct package)
+  pdfx: ^2.6.0
+  file_picker: ^5.2.6
+
+  # Charts for habits visualization
   charts_flutter: ^0.12.0
 
 dev_dependencies:
