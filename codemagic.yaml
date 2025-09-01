@@ -10,11 +10,18 @@ workflows:
       - name: Install dependencies
         script: flutter pub get
 
+      # Run analyzer but don't fail build if warnings/errors exist
       - name: Run Flutter analyze
         script: flutter analyze || true
 
+      # Skip tests if no test folder exists
       - name: Run tests (optional)
-        script: flutter test || true
+        script: |
+          if [ -d "test" ]; then
+            flutter test
+          else
+            echo "No tests found. Skipping..."
+          fi
 
       - name: Build APK (release)
         script: flutter build apk --release
@@ -25,6 +32,7 @@ workflows:
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/bundle/release/app-release.aab
+      - build/app/outputs/apk/release/app-release.apk
 
     publishing:
       email:
