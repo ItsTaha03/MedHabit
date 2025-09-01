@@ -6,7 +6,11 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+
     scripts:
+      - name: Regenerate missing project files (if needed)
+        script: flutter create .
+
       - name: Install dependencies
         script: flutter pub get
 
@@ -37,4 +41,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com
+          - freebucks177@gmail.com
