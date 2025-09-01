@@ -1,6 +1,6 @@
 name: medhabit
-description: A habit tracker app (offline) inspired by Atomic Habits.
-publish_to: 'none'
+description: MedHabit - Medical Student Habit Tracker
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -10,24 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # State management
-  provider: ^6.0.5
-
-  # Local storage
+  cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.15
-  path_provider: ^2.0.11
-
-  # PDF support (correct package)
-  pdfx: ^2.6.0
-  file_picker: ^5.2.6
-
-  # Charts for habits visualization
-  charts_flutter: ^0.12.0
+  file_picker: ^5.2.5
+  pdfx: ^2.3.0
+  intl: ^0.18.1
+  fl_chart: ^0.63.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
